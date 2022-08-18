@@ -1,0 +1,174 @@
+﻿--------------------------------------------------------- Tabela: CATEGORIAS ----------------------------------------------------------------
+
+USE [DB_VENDAS]
+GO
+
+/****** Object:  Table [dbo].[TBCategorias]    Script Date: 18/08/2022 10:56:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TBCategorias](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Descricao] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+----------------------------------------------------------- Tabela: CLIENTES -----------------------------------------------------------------
+
+USE [DB_VENDAS]
+GO
+
+/****** Object:  Table [dbo].[TBClientes]    Script Date: 18/08/2022 10:57:42 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TBClientes](
+	[Documento] [varchar](14) NOT NULL,
+	[Nome] [varchar](60) NOT NULL,
+	[Telefone] [varchar](20) NOT NULL,
+	[Email] [varchar](60) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Documento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBClientes]  WITH CHECK ADD CHECK  ((len([Documento])=(11) OR len([Documento])=(14)))
+GO
+
+------------------------------------------------------------- Tabela: ITENS ------------------------------------------------------------
+
+USE [DB_VENDAS]
+GO
+
+/****** Object:  Table [dbo].[TBItens]    Script Date: 18/08/2022 10:59:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[TBItens](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdPedido] [int] NOT NULL,
+	[IdProduto] [int] NOT NULL,
+	[Quantidade] [float] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[TBItens]  WITH CHECK ADD FOREIGN KEY([IdPedido])
+REFERENCES [dbo].[TBPedidos] ([Id])
+GO
+
+ALTER TABLE [dbo].[TBItens]  WITH CHECK ADD FOREIGN KEY([IdProduto])
+REFERENCES [dbo].[TBProdutos] ([Id])
+GO
+
+------------------------------------------------------ Tabela: PEDIDOS ------------------------------------------------------------------
+
+USE [DB_VENDAS]
+GO
+
+/****** Object:  Table [dbo].[TBPedidos]    Script Date: 18/08/2022 11:00:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TBPedidos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[DocCliente] [varchar](14) NOT NULL,
+	[Data] [datetime] NOT NULL,
+	[NumeroPedido] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBPedidos]  WITH CHECK ADD FOREIGN KEY([DocCliente])
+REFERENCES [dbo].[TBClientes] ([Documento])
+GO
+
+
+-------------------------------------------------------------- Tabela: PRODUTOS --------------------------------------------------------------
+
+USE [DB_VENDAS]
+GO
+
+/****** Object:  Table [dbo].[TBProdutos]    Script Date: 18/08/2022 11:01:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[TBProdutos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdCategoria] [int] NOT NULL,
+	[Descricao] [varchar](50) NOT NULL,
+	[Unidade] [varchar](10) NOT NULL,
+	[Foto] [varbinary](max) NULL,
+	[MimeType] [varchar](20) NULL,
+	[Preco] [float] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[TBProdutos]  WITH CHECK ADD FOREIGN KEY([IdCategoria])
+REFERENCES [dbo].[TBCategorias] ([Id])
+GO
+
+------------------------------------------- Para autenticacao o Banco de dados se chama: DB_USUARIOS ------------------------------------------
+
+
