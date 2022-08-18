@@ -1,0 +1,2 @@
+﻿﻿Usuario: admin
+senha: admin1234 => ROLE: ADMIN
