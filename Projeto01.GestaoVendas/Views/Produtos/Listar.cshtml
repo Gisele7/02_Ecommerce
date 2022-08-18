@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Projeto01.GestaoVendas.Models.Produto>
+
+@{
+    ViewBag.Title = "Listar Produtos";
+}
+
+<h2>Lista de Produtos</h2>
+
+<p>
+    @Html.ActionLink("Incluir novo produto", "Incluir")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <td>
+                @* IMAGEM *@
+                <img src="@Url.Action("BuscarProduto", "Produtos", new { id = item.Id })" style="width:100px;" />
+            </td>
+            <td>
+                <button class="btn btn-primary detalhes" data-id="@item.Id">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Detalhes
+                </button>
+                <button class="btn btn-success edicao" data-id="@item.Id">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    Alterar
+                </button>
+                <button class="btn btn-danger remocao" data-id="@item.Id">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Remover
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal" id="modal"></div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $(".detalhes").click(function () {
+                var id = $(this).attr("data-id")
+                $("#modal").load("/Produtos/ExibirDetalhes?id=" + id, function () {
+                    $("#modal").modal();
+                });
+            });
+
+            $(".edicao").click(function () {
+                var id = $(this).attr("data-id")
+                $("#modal").load("/Produtos/Alterar?id=" + id, function () {
+                    $("#modal").modal();
+                });
+            });
+            $(".remocao").click(function () {
+                var id = $(this).attr("data-id")
+                $("#modal").load("/Produtos/Remover?id=" + id, function () {
+                    $("#modal").modal();
+                });
+            });
+
+        });
+
+    </script>
+    }

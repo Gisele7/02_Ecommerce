@@ -1,0 +1,22 @@
+﻿@model Projeto01.GestaoVendas.Models.Pedido
+
+@{
+    ViewBag.Title = "Remover Pedido";
+}
+<h2>Remover Pedido</h2>
+<h3 class="text-danger">Tem certeza que deseja remover o pedido @Model.NumeroPedido?</h3>
+
+<div>
+
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.DocCliente)
+        <div class="form-actions no-color">
+            <input type="submit" value="Sim, excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Não, voltar para a lista", "Listar", "Pedidos", new { doc = Model.DocCliente})
+        </div>
+    }
+</div>

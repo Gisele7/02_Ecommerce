@@ -1,0 +1,48 @@
+﻿@model Projeto01.GestaoVendas.Models.Cliente
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do Cliente <span class=" text-primary">@Model.Nome</span></h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Documento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Documento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar para a lista", "Listar")
+</p>

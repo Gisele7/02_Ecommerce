@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Pedidos";
+}
+
+<h2>Gestão de Pedidos - Escolha uma opção</h2>
+
+<ul>
+    <li>@Html.ActionLink("Inclusão de Pedidos", "Incluir", "Pedidos")</li>
+    <li>@Html.ActionLink("Lista de Pedidos", "Listar", "Pedidos")</li>
+    <li>@Html.ActionLink("Lista de Pedidos (Ajax)", "ListarAjax",  "Pedidos")</li>
+</ul>

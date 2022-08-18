@@ -1,0 +1,83 @@
+﻿@model Projeto01.GestaoVendas.Models.Produto
+
+@{
+    ViewBag.Title = "Incluir Produto";
+}
+
+<h2>Incluir Novo Produto</h2>
+@*
+    Primeiro parâmetro é o incluir, action onde iremos enviar nossos dados.
+    Segundo parâmetro Produtos, que é o nome do controller.
+    Terceiro parâmetro é o método de envio, que é o Post.
+    Quarto parâmetro é html, porem so reconhece na renderização.
+*@
+@using (Html.BeginForm("Incluir", "Produtos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(
+               model => model.IdCategoria,
+              (SelectList)ViewBag.ListaCategorias,
+              new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Unidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Unidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Unidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* DIV DA IMAGEM *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span>
+                    <input type="file" name="image" class="form-control" />
+                </span>
+                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Incluir Produto" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para o menu", "Index")
+</div>
+
+@section scripts {
+    
+    <script src="incluir.js"></script>
+
+}

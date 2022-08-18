@@ -1,0 +1,89 @@
+﻿@model Projeto01.GestaoVendas.Models.Produto
+
+@{
+    Layout = null;
+}
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("Alterar", "Produtos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">x</span>
+            </button>
+            <h4 class="modal-title">Alteração de Produto</h4>
+        </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.Foto)
+                            @Html.HiddenFor(model => model.MimeType)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(
+                                        model => model.IdCategoria,
+                                        (SelectList)ViewBag.ListaCategorias,
+                                        new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Unidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Unidade, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Unidade, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @* DIV DA IMAGEM *@
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <span>
+                                        <input type="file" name="image" class="form-control" />
+                                    </span>
+                                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <img src="@Url.Action("BuscarProduto", "Produtos", new { id = Model.Id })" style="width:150px;" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Alterar Produto" class="btn btn-primary" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        }
+    </div>
+</div>

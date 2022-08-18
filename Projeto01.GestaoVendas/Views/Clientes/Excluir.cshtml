@@ -1,0 +1,20 @@
+﻿@model Projeto01.GestaoVendas.Models.Cliente
+
+@{
+    ViewBag.Title = "Excluir";
+}
+<h3 class="text-danger">Tem certeza que deseja remover o cliente @Model.Nome?</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Documento)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sim, excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Não, voltar para a lista", "Listar")
+        </div>
+    }
+</div>

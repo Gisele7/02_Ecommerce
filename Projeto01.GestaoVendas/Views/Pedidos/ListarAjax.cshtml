@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Listar Pedidos";
+}
+
+<h2>Listar Pedidos via Ajax</h2>
+
+@* Primeiro  parâmetro é o nome da view.
+    Segundo parâmetro é onde que o resultado irá ser atualizado. Onde esta view parcial será inserida?
+*@
+@using (Ajax.BeginForm("ListarAjax",
+    new AjaxOptions { UpdateTargetId = "resultado" }))
+{
+    @*
+        O QUE ESTÁ ACONTECENDO ACIMA É QUE QUANDO UMA REQUISIÇÃO AJAX FOR REALIZADA, NÓS VAMOS PASSAR ESSA REQUISIÇÃO PRA VIEW
+        'LISTARAJAX' E NA PÁGINA(VIEW) 'LISTARAJAX', QUEM É O ELEMENTO QUE VAI SER ATUALIZADO? (UPDATETARGEDID), ONDE O AJAX IRÁ INSERIR
+        O RESULTADO? NUM ELEMENTO JUDO ID É 'RESULTADO'.
+    *@
+
+    <div class="form-horizontal">
+        <div class="form-goup">
+            @Html.Label("Seleciona o cliente", htmlAttributes:
+                new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("id",@*COLOCAMOS O ID COMO PARAMETRO POIS O NOSSO METODO LISTAR TEM COMO PARAMETRO O ID. *@
+ViewBag.ListaClientes as SelectList,
+"SELECIONE O CLIENTE",
+new { @class = "form-control" })
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<div id="resultado"></div>
+@section scripts{
+    <script>
+        /*Quando nosso documento estiver pronto*/
+        $(document).ready(function () {
+            /*evento para p dropdown*/
+            $("#id").change(function () {
+                /*Quando a gente executar o componente change*/
+                var selecao = $(this).val();
+                $("#resultado").load("/Pedidos/ListarAjax/" + selecao);
+
+
+            });
+        });
+    </script>
+
+
+}

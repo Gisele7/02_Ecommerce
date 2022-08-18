@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Projeto01.GestaoVendas.ViewModels.ClientePedidosVM>
+
+@if (Model != null)
+{
+    <table class="table table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DocCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroPedido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPedido)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeCliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroPedido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataPedido)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+}
+

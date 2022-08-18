@@ -1,0 +1,15 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink(User.Identity.Name, "Index", "Autenticacao")</li>
+        <li>@Html.ActionLink("Logout", "Logout", "Autenticacao")</li>
+        @*<li><button id="button" onclick="Logout()">Sair</button></li>*@
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Cadastra-se", "Cadastro", "Autenticacao")</li>
+        <li>@Html.ActionLink("Login", "Login", "Autenticacao")</li>
+    </ul>
+}

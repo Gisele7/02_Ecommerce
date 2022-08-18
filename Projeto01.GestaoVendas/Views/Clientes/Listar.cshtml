@@ -1,0 +1,72 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<Projeto01.GestaoVendas.Models.Cliente>
+
+
+@*@model IEnumerable<Projeto01.GestaoVendas.Models.Cliente>*@
+
+@{
+    ViewBag.Title = "Listar Clientes";
+}
+
+<h2>Lista de Clientes</h2>
+
+<p>
+    @Html.ActionLink("Novo Cliente", "Incluir")
+</p>
+@* COLUNAS *@
+<table class="table">
+    <tr>
+        <th>
+            Documento
+            @*@Html.DisplayNameFor(model => model.Documento)*@
+        </th>
+        <th>
+            Nome
+            @*@Html.DisplayNameFor(model => model.Nome)*@
+        </th>
+        <th>
+            Telefone
+            @*@Html.DisplayNameFor(model => model.Telefone)*@
+        </th>
+        <th>
+            Email
+            @*@Html.DisplayNameFor(model => model.Email)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @* COLUNAS *@
+            <td>
+                @Html.DisplayFor(modelItem => item.Documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "Alterar", new { id = item.Documento }) |
+                @Html.ActionLink("Detalhes", "ExibirDetalhes", new { id = item.Documento }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Documento })
+            </td>
+        </tr>
+    }
+        
+</table>
+
+<div class="row">
+    <div class="col-md-8">
+        @Html.PagedListPager(Model, pagina => Url.Action("Listar", new { pagina }))
+    </div>
+    <div class= "col-md-4">
+        Listando registros de @Model.FirstItemOnPage a @Model.LastItemOnPage
+            de um total de @Model.TotalItemCount
+    </div>
+</div>

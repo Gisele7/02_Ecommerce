@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@section scripts{
+
+    <script>
+        function Logout () {
+            debugger;
+            swal({
+                title: "Tem certeza que deseja sair?",
+                text: "Ao sair você perderá os acessos do sistema.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Sim!",
+                closeOnConfirm: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        location.href = "@Url.Action("Logout", "Autenticacao")";
+                    }
+                    else {
+
+                      swal("Cancelado", "Você continua logado", "erro");
+                    }
+
+                });
+
+        }
+
+    </script>
+
+
+}

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Projeto01.GestaoVendas.ViewModels.ClientePedidosVM>
+
+@{
+    ViewBag.Title = "Listar Pedidos";
+}
+
+<h2>Listar Pedidos</h2>
+
+<p>
+    @Html.ActionLink("Adicionar novo pedido", "Incluir")
+</p>
+<p>
+    @using (Html.BeginForm("Listar", "Pedidos", FormMethod.Get))
+    {
+        <div class="form-horizontal">
+            <div class="form-goup">
+                @Html.Label("Seleciona o cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-9">
+                    @Html.DropDownList("doc", @*COLOCAMOS O doc COMO PARAMETRO POIS O NOSSO METODO LISTAR TEM COMO PARAMETRO O doc. *@
+                    ViewBag.ListaClientes as SelectList, "SELECIONE O CLIENTE",
+                     new { @class = "form-control" })
+                   
+                </div>
+            </div>
+            <div class="col-md-1">
+                <input type="submit" value="Buscar" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroPedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdItens)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DocCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modeItem => item.QtdItens)
+            </td>
+            <td>
+                @Html.ActionLink("Itens deste pedido", "AdicionarItem", "Itens",  new {  IdPedido=item.IdPedido}, new { @class="btn btn-default" }) |
+                @Html.ActionLink("Remover", "RemoverPedido","Pedidos" , new {  id=item.IdPedido }, new { @class="btn btn-danger"})
+            </td>
+        </tr>
+    }
+
+</table>
