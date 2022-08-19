@@ -168,3 +168,4 @@ REFERENCES [dbo].[TBCategorias] ([Id])
 GO
 
 ------------------------------------------- Para autenticacao o Banco de dados se chama: DB_USUARIOS ------------------------------------------
+---------------------------------------------- Este Projeto tem que rodar em conjunto com a API 03 ------------------------------------------
