@@ -169,6 +169,8 @@
       <DependentUpon>VendasModel.edmx</DependentUpon>
       <LastGenOutput>VendasModel.cs</LastGenOutput>
     </Content>
+    <Content Include="notas\Anotacoes.txt" />
+    <Content Include="notas\UsuarioeSenha.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -280,7 +282,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="notas\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

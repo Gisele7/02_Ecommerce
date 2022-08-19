@@ -47,47 +47,57 @@
 {
     <script>
 
-        document.getElementById('buscarButton').addEventListener('click', function () {
-            let id = document.getElementById('idCartao');
-            let url = `http://localhost:53610/cartoes/buscar/${id}`;
-            let resposta = {};
+        //document.getElementById('buscarButton').addEventListener('click', function () {
+        //    let id = document.getElementById('idCartao');
+        //    let url = `http://localhost:53610/cartoes/buscar/${id}`;
+        //    let resposta = {};
 
-            fetch(url).then(res => {
-                let x = res.json();
-                return x;
-            }).then(valor => {
+        //    fetch(url).then(res => {
+        //        let x = res.json();
+        //        return x;
+        //    }).then(valor => {
 
-                resposta = valor;
-                console.log(resposta);
-                document.getElementById('cartao').value = resposta.NumeroCartao;
-                document.getElementById('titular').value = resposta.Titular;
-                document.getElementById('limite').value = resposta.Limite;
-            }).catch(erro => console.log(erro));
-        });
+        //        resposta = valor;
+        //        console.log(resposta);
+        //        document.getElementById('cartao').value = resposta.NumeroCartao;
+        //        document.getElementById('titular').value = resposta.Titular;
+        //        document.getElementById('limite').value = resposta.Limite;
+        //    }).catch(erro => console.log(erro));
+        //});
 
 
         $(document).ready(function () {
 
+            $("#buscarButton").click(function () {
+                var id = $("#idCartao").val();
+                $.ajax({
+                    dataType: 'json',
+                    url:  `http://localhost:53610/cartoes/buscar/${id}`,
+                    method: 'GET',
+                    success: function (resposta) {
+                        console.log(resposta);
+                        if (resposta == null) {
+                            alert("Nenhum cartão encontrado!");
+                            $("#cartao").val("");
+                            $("#titular").val("");
+                            $("#limite").val("");
+                            $("#idCartao").val("");
 
-
-
-            //$("#buscarButton").click(function () {
-            //    var id = $("idCartao").val();
-            //    $.ajax({
-            //        dataType: 'json'.
-            //        url:  `http://localhost:53610/cartoes/buscar/${id}`,
-            //        method: 'GET',
-            //        success: function (resposta) {
-            //            console.log(resposta);
-            //           $("#cartao").val(resposta.NumeroCartao);
-            //           $("#titular").val(resposta.Titular);
-            //           $("#limite").val(resposta.Limite);
-            //        },
-            //        error: function (erro) {
-            //            console.log(erro.responseText);
-            //        }
-            //    });
-            //});
+                        }
+                        else {
+                            $("#cartao").val(resposta.NumeroCartao);
+                            $("#titular").val(resposta.Titular);
+                            $("#limite").val(resposta.Limite);
+                        }
+                    },
+                    error: function (erro) {
+                        $("#cartao").val("");
+                        $("#titular").val("");
+                        $("#limite").val("");
+                        console.log(erro.responseText);
+                    }
+                });
+            });
 
 
             $("#incluirButton").click(function () {
